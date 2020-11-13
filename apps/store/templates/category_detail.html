@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.title }} | {% endblock %}
+
+{% block content %}
+
+<style>
+
+.navbar-item {
+margin: -5px;
+
+}
+
+.navbar-dropdown {
+font-family: "Roboto", sans-serif;
+font-size: 12px;
+}
+
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* If screen size is more than 600px wide, set the font-size of <div> to 80px */
+@media screen and (min-width: 600px) {
+  div.example {
+    font-size: 80px;
+  }
+}
+
+/* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  div.example {
+    font-size: 15px;
+  }
+}
+
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* On screens that are 992px wide or less, go from four columns to two columns */
+@media screen and (max-width: 992px) {
+  .column {
+    width: 50%;
+  }
+}
+
+/* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 50%;
+  }
+}
+
+</style>
+
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'frontpage' %}">Home</a></li>
+            {% if category.parent %}
+                <li><a href="{% url 'category_detail' category.parent.slug %}">{{ category.parent.title }}</a></li>
+            {% endif %}
+            <li class="is-active"><a href="{% url 'category_detail' category.slug %}">{{ category.title }}</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="title">{{ category.title }}</h1>
+
+    {% if category.children.all %}
+        <div class="columns is-multiline">
+            {% for subcategory in category.children.all %}
+                <div class="column is-2">
+                    <h2 class="subtitle">{{ subcategory.title }}</h2>
+
+                    <a href="{% url 'category_detail' subcategory.slug %}">View products</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% with products as list_products %}
+            {% include 'parts/product_list.html' %}
+        {% endwith %}
+    {% endif %}
+
+
+ <h2 class="subtitle has-text-centered">Recently viewed products</h2>
+
+    {% with recently_viewed_products as list_products %}
+        {% include 'parts/product_list.html' %}
+    {% endwith %}
+
+{% endblock %}

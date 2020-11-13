@@ -1,0 +1,247 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}{% endblock %}Buy @low price, Fashion, Phones, Electronics Online|Shopping</title>
+		<link rel="icon" href="\media\uploads\mylogoama8.png" type="\media\uploads\mylogoama8.png" sizes="50x50">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+		<link rel="stylesheet" href="{% static 'main.css' %}">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+
+	<style>
+
+    body {
+        font-family: Helvetica Neue,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,sans-serif;
+        font-size: 12px;
+        background-color: #f7f7f7;
+    }
+
+    form ul:not(.errorlist) {
+    display: none;
+}
+
+.navbar-item {
+margin: -5px;
+
+}
+
+.navbar-dropdown {
+font-family: "Roboto", sans-serif;
+font-size: 12px;
+}
+
+
+.head_text {
+        color: white;
+    }
+
+
+.footer{
+    width: 100vw;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    padding: 70px 5;
+    box-sizing: border-box;
+    background-color: #03030d
+}
+
+/* Style the header */
+.header {
+  background-color: #4a4a4a;
+  padding: 20px;
+  color: white;
+  text-align: rigth;
+
+}
+
+.control {
+margin: 10px;
+
+}
+
+/* Style the header */
+.navbar {
+  background-color: #0cc2bf;
+  color: white;
+  text-align: rigth;
+
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+
+/* Change color of dropdown links on hover */
+.navbar-dropdown a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #fffff;}
+
+
+</style>
+
+	<div class="header">
+		</div>
+
+	<body>
+		<nav class="navbar is-dark" id="navbarapp">
+			<div class="navbar-brand" href="">
+
+				<a class="navbar-item" href="{% url 'frontpage' %}"><img src="\media\uploads\mylogoama4.png" style="width:100px;"></a>
+
+				<a @click="toggleMenu()" role="button" class="navbar-burger burger" sans-label="menu" sans-expanded="false" data-target="main-navbar">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+
+			<div id="main-navbar" class="navbar-menu" :class="{ 'is-active': menuClass }">
+				<div class="navbar-start">
+					<div class="navbar-item">
+						<form method="get" action="{% url 'search' %}">
+							<div class="field has-addons">
+								<div class="control">
+									<input type="text" class="input is-small" placeholder="Search..." name="query">
+								</div>
+								<div class="control">
+									<button class="button is-success is-small">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="navbar-end">
+                   	{% for category in menu_categories %}
+						{% if not category.children.all %}
+                        	<a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
+						{% else %}
+							<div class="navbar-item has-dropdown is-hoverable">
+								<a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>
+
+								<div class="navbar-dropdown">
+									<button class="dropbtn">
+									{% for subcategory in category.children.all %}
+										<a href="{% url 'category_detail' subcategory.slug %}" class="navbar-item">{{ subcategory.title }}</a>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="navbar-item">
+						<a href="{% url 'cart' %}" class="button is-primary"><i class="fab fa-opencart" aria-hidden="true"></i></i>Cart ([[ numItems ]])</a>
+					</div>
+
+					{% if request.user.is_authenticated %}
+							<div class="navbar-item">
+								<a href="{% url 'myaccount' %}" class="button is-light is-small">My account</a>
+							</div>
+					{% else %}
+							<div class="navbar-item">
+									<div class="buttons">
+											<a href="{% url 'login' %}" class="button is-info is-small">Login</a>
+											<a href="{% url 'signup' %}" class="button is-primary is-small">Signup</a>
+									</div>
+							</div>
+					{% endif%}
+
+				</div>
+			</div>
+		</nav>
+<div class="header">
+		</div>
+		<section class="section">
+			{% block content %}
+            {% endblock %}
+		</section>
+{% include 'parts/newsletter.html' %}
+		<footer class="footer">
+			<div class="columns">
+
+				</div>
+			<div class="columns">
+				<div class="column is-4">
+					<h2 class="subtitle">Dynariel Technologies</h2>
+					<p>dobuy.com your number one online store in Nigeria.
+						Finding quality products has never been made so easy online,
+						with amabuyer.com you don’t need to worry about getting value for your money,
+						with our money back guarantee you can trust we would deliver what you order in good time.
+						Copyright © 2020</p>
+				</div>
+
+				<div class="columns">
+					<div class="column is-8">
+					<a href="{% url 'about' %}"  class="subtitle">About us</a>
+					<p>amabuyer.com your number one online store in Nigeria.
+						Finding quality products has never been made so easy online,
+						with dobuy you don’t need to worry about getting value for your money,
+						with our money back guarantee you can trust we would deliver what you order in good time</p>
+				</div>
+					<div class="columns">
+						<div class="column is-8">
+					<a href="{% url 'contact' %}" class="subtitle">Contact</a>
+					<p>1, Innovations Avenue, Victoria Island, Lagos, Nigeria. Phone: +2348135513397, +2348030690743. www.dobuy.com</p>
+				</div>
+			</div>
+			</div>
+			</div>
+		</footer>
+		<script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				state: {
+					numItems: {{ cart.get_total_length }},
+					totalCost: {{ cart.get_total_cost }}
+				},
+				mutations: {
+					increment(state, quantity) {
+						state.numItems += quantity;
+					},
+					changeTotalCost(state, newCost) {
+						state.totalCost += newCost
+					}
+				}
+			});
+
+			var navbarapp = new Vue({
+				el: '#navbarapp',
+				delimiters: ['[[', ']]'],
+				store: store,
+				data () {
+					return {
+						menuClass: false
+					}
+				},
+				computed: {
+					numItems: function() {
+						return store.state.numItems
+					}
+				},
+				methods: {
+					toggleMenu() {
+						console.log('toggleMenu');
+
+						this.menuClass = !this.menuClass;
+					}
+				}
+			});
+		</script>
+
+		{% block scripts %}
+		{% endblock %}
+	</body>
+</html>

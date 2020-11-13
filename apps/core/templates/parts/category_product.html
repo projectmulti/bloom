@@ -1,0 +1,29 @@
+{% load humanize %}
+
+
+<div class="columns is-multiline">
+    {% for p in category_products %}
+        <div class="column is-2 is-6-mobile">
+            <a href="{% url 'product_detail' p.category.slug p.slug %}">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image">
+                        <img src="{{ p.thumbnail.url }}">
+                    </figure>
+                </div>
+
+                  <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p>{{ p.title }}</p>
+                                <p >₦{{ p.price|intcomma }}</p>
+                            </div>
+                        </div>
+                    </div>
+                <footer class="card-footer">
+                    <a href="{% url 'product_detail' p.category.slug p.slug %}" class="card-footer-item">View</a>
+                </footer>
+            </div>
+        </div>
+    {% endfor %}
+</div>
