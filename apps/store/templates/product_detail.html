@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% block title %}{{ product.title }} | {% endblock %}
 
 {% load humanize %}
-
-{% block title %}{{ product.title }} | {% endblock %}
 
 {% block content %}
 
@@ -13,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 <style>
     body {
@@ -75,6 +74,7 @@
     text-color: #0c0d0c;
     padding: 70px 5;
     box-sizing: border-box;
+
 
 }
 
@@ -167,6 +167,10 @@ margin: -10px;
     width: 50%;
   }
 
+  .fa_custom {
+color: #0099CC
+}
+
 </style>
 
 <div class="flex-container">
@@ -192,7 +196,18 @@ margin: -10px;
           <div class="reviews-wrapper">
           <div class="container">
            <img :src="mainImage">
-
+   <td>
+                                    {% if product.in_cart %}
+                                        <p>Already in cart!</p>
+                                    {% else %}
+                                        {% if product.num_available > 0 %}
+                                            <button @click="addToCart({{ product.id }})" class="button is-success is-Loading">Add to cart</button>
+                                        {% else %}
+                                            <p>The product is out of stock!</p>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
              </div>
            </div>
         {% if product.images.all %}
@@ -207,10 +222,14 @@ margin: -10px;
 
         {% endif %}
         <hr>
-        <div class="reviews-wrapper">
+         <div class="reviews-wrapper">
          <div class="container">
-        <h1 class="title">{{ product.title }}</h1>
-        <h2 class="title">₦{{ product.price|intcomma }}, Stars: {% if product.get_rating == 0 %}No ratings yet{% else %}{{ product.get_rating|floatformat:1 }}{% endif %}</h2>
+        <h1 class="subtitle">{{ product.title }}</h1>
+         </div>
+         </div>
+           <div class="reviews-wrapper">
+         <div class="container">
+        <h2 class="title">₦ {{ product.price|intcomma }}, <i class="fa fa-star checked" aria-hidden="true"></i>: {% if product.get_rating == 0 %}No ratings yet{% else %}{{ product.get_rating|floatformat:1 }}{% endif %}</h2>
               </div>
         </div>
 
@@ -256,19 +275,6 @@ margin: -10px;
                                 <td>
                                     {{ product.title }}
                                 </td>
-
-                                <td>
-                                    {% if product.in_cart %}
-                                        <p>Already in cart!</p>
-                                    {% else %}
-                                        {% if product.num_available > 0 %}
-                                            <button @click="addToCart({{ product.id }})" class="button is-success">Add to cart</button>
-                                        {% else %}
-                                            <p>The product is out of stock!</p>
-                                        {% endif %}
-                                    {% endif %}
-                                </td>
-                            </tr>
 
                             {% for variant in product.variants.all %}
                                 <tr>
@@ -334,7 +340,7 @@ margin: -10px;
                 <div class="notification space-below">
                     <p>
                         <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }},
-                        <strong>Stars: </strong>{{ review.stars }}
+                        <strong><i class="fa fa-star" aria-hidden="true"></i>: </strong>{{ review.stars }}
                     </p>
 
                     {{ review.content }}
@@ -370,7 +376,7 @@ margin: -10px;
 
                     <div class="field">
                         <label>Content</label>
-
+                        <hr>
                         <div class="control">
                             <textarea class="textarea" name="content"></textarea>
                         </div>

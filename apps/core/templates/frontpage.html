@@ -11,6 +11,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+
 
 
 
@@ -490,7 +492,7 @@ display: grid;
 </style>
 
 <div class="flex-container">
-    <img src="\media\uploads\frontpageimageflex.jpg">
+    <img src="\media\uploads\AMA66.jpg">
 </div>
 </div>
 <hr>
@@ -499,7 +501,13 @@ display: grid;
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="\media\uploads\frontpg.jpeg" style="width:100%">
+  <img src="\media\uploads\ama67.jpg" style="width:100%">
+  <div class="text"></div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext"></div>
+  <img src="\media\uploads\ama68.jpg" style="width:100%">
   <div class="text"></div>
 </div>
 
@@ -515,27 +523,11 @@ display: grid;
   <div class="text"></div>
 </div>
 
-
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="\media\uploads\frontpageimage.JPEG" style="width:100%">
+  <img src="\media\uploads\frontpg.jpeg" style="width:100%">
   <div class="text"></div>
 </div>
-
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="\media\uploads\ricard.JPEG" style="width:100%">
-  <div class="text"></div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="\media\uploads\intel.JFIF" style="width:100%">
-  <div class="text"></div>
-</div>
-
-
-
 </div>
 <br>
 
@@ -545,10 +537,24 @@ display: grid;
   <span class="dot"></span>
   <span class="dot"></span>
   <span class="dot"></span>
-  <span class="dot"></span>
+</div>
 </div>
 
+<div class="flex-container">
+    <img src="\media\uploads\AMA66.jpg">
 </div>
+
+    <h1 class="title">{{category.title}}</h1>
+    {% with products as list_products %}
+        {% include 'parts/product_list.html' %}
+    {% endwith %}
+
+</div>
+<div class="flex-container">
+    <img src="\media\uploads\AMA66.jpg">
+</div>
+</div>
+
 <script>
 var slideIndex = 0;
 showSlides();
@@ -572,8 +578,6 @@ function showSlides() {
 
 </script>
 
-
-<hr>
 </div>
 <section>
     <h2 class="title has-text-centered">Popular products</h2>
@@ -599,7 +603,7 @@ function showSlides() {
         {% endfor %}
     </div>
 <div class="flex-containers">
-    <img src="\media\uploads\frontpageimageflex.jpg">
+    <img src="\media\uploads\AMA66.jpg">
     </div>
  </div>
 <hr>
@@ -610,7 +614,7 @@ function showSlides() {
     {% endwith %}
 
 <div class="flex-containers">
-    <img src="\media\uploads\frontpageimageflex.jpg">
+    <img src="\media\uploads\AMA66.jpg">
     </div>
 
      <h2 class="subtitle has-text-centered">Recently viewed products</h2>
@@ -650,7 +654,7 @@ function showSlides() {
 
 </div>
 <div class="flex-containers">
-    <img src="\media\uploads\frontpageimageflex.jpg">
+    <img src="\media\uploads\AMA66.jpg">
     </div>
  </div>
 {% endblock %}

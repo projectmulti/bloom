@@ -13,7 +13,7 @@
                   <div class="card-content">
                         <div class="media">
                             <div class="media-content">
-                                <p>{{ categories.title }}</p>
+                                <p>{{ categories.title|truncatechars:8 }}</p>
                                 <p >₦{{ categories.price }}</p>
                             </div>
                         </div>

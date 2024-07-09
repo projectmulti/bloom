@@ -8,15 +8,17 @@ form .helptext {
     color: #ccc;
 }
 
-form ul:not(.errorlist) {
-    display: none;
-}
-
 </style>
 
 <div class="columns">
     <div class="column is-6 is-offset-3">
         <h1 class="title">Sign up</h1>
+
+        {% if form.errors %}
+                <div class="notification is-danger">
+                    Your username already taken or password didn't match! Please try again!
+                </div>
+            {% endif %}
 
         <form method="post" action=".">
             {% csrf_token %}
@@ -33,4 +35,5 @@ form ul:not(.errorlist) {
         </form>
     </div>
 </div>
+
 {% endblock %}

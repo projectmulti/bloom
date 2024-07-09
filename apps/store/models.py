@@ -26,7 +26,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     parent = models.ForeignKey('self', related_name='variants', on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=255)
     description = models.TextField(blank=True, null=True)
     key_features = models.TextField(blank=True, null=True)
@@ -35,7 +35,6 @@ class Product(models.Model):
     num_available = models.IntegerField(default=1)
     num_visits = models.IntegerField(default=0)
     last_visit = models.DateTimeField(blank=True, null=True)
-
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -71,7 +70,7 @@ class Product(models.Model):
         img.thumbnail(size)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
+        img.save(thumb_io, 'JPEG', quality=200)
 
         thumbnail = File(thumb_io, name=image.name)
 
@@ -103,7 +102,7 @@ class ProductImage(models.Model):
         img.thumbnail(size)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
+        img.save(thumb_io, 'JPEG', quality=200)
 
         thumbnail = File(thumb_io, name=image.name)
 

@@ -9,7 +9,7 @@ def email(request):
     subject = 'Thank you for registering to our site'
     message = ' it  means a world to us '
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['salesreportdynarielinnovations@gmail.com', order.email]
+    recipient_list = ['dynarielinnovations@gmail.com', order.email]
     send_mail( subject, message, email_from, recipient_list )
     html_content = render_to_string('order_confirmation.html', {'order': order})
 

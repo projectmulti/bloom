@@ -1,6 +1,41 @@
 {% load humanize %}
 
+<style>
+/* If screen size is more than 600px wide, set the font-size of <div> to 80px */
+@media screen and (min-width: 600px) {
+  div.example {
+    font-size: 80px;
+  }
+}
 
+/* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  div.example {
+    font-size: 15px;
+  }
+}
+
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* On screens that are 992px wide or less, go from four columns to two columns */
+@media screen and (max-width: 992px) {
+  .column {
+    width: 50%;
+  }
+}
+
+/* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 50%;
+  }
+}
+    </style>
 <div class="columns is-multiline">
     {% for p in list_products %}
         <div class="column is-2 is-6-mobile">
@@ -15,13 +50,13 @@
                   <div class="card-content">
                         <div class="media">
                             <div class="media-content">
-                                <p>{{ p.title }}</p>
+                                <p>{{ p.title|truncatechars:20 }}</p>
                                 <p >₦{{ p.price|intcomma }}</p>
                             </div>
                         </div>
                     </div>
                 <footer class="card-footer">
-                    <a href="{% url 'product_detail' p.category.slug p.slug %}"></a>
+
                 </footer>
             </div>
         </div>

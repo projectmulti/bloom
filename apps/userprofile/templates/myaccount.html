@@ -54,7 +54,11 @@ form ul:not(.errorlist) {
                     <tbody>
                         {% for item in order.items.all %}
                             <tr>
-                                <td>{{ item.product.title }}</td>
+                                <td>
+                                     <a :href="product.url">
+                                    {{ item.product.title }}
+                                     </a>
+                                </td>
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.price }}</td>
                             </tr>
